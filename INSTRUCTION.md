@@ -1,5 +1,7 @@
 # Docker Build and Run Container
 
+Build tested on Ubuntu22.04 with CUDA Version 12.2
+
 ## How to start build
 
 If **Docker Desktop** is installed, make sure the image is built with `sudo` privilege. If `sudo` privilege is not used, the image will not be visible to the local docker engine.
