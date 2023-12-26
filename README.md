@@ -27,9 +27,9 @@ curl -fsSL https://raw.githubusercontent.com/mviereck/x11docker/master/x11docker
 sudo x11docker -i --sudouser --gpu --runtime=nvidia --xwayland openpose:base
 ```
 
-### Sudo Privileges
+### Sudo Privileges (Important)
 
-If access is denied to certain files or directories, get sudo privileges inside container.
+Conda is only available with root user. Set user to `root` when attached to a running container.
 
 ```[bash]
 # Password is always x11docker
