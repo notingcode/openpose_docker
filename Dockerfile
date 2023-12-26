@@ -1,5 +1,7 @@
 FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 
+ARG user
+
 # Do not check for keyboard response and answer with default choice
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -53,11 +55,11 @@ RUN wget http://ceres-solver.org/ceres-solver-2.1.0.tar.gz \
 RUN rm -rf ceres-solver-2.1.0 && rm -rf ceres-bin && rm ceres-solver-2.1.0.tar.gz
 
 # Clone repository
-WORKDIR /root/
+WORKDIR /home/${user}/
 
 RUN git clone https://github.com/CMU-Perceptual-Computing-Lab/openpose.git --recursive
 
-WORKDIR /root/openpose
+WORKDIR /home/${user}/openpose
 
 # Install pip dependencies
 RUN pip3 install numpy opencv-python gdown
@@ -71,7 +73,7 @@ RUN unzip -o openpose_pretrained_models.zip
 # Clean-up and get ready to build OpenPose
 RUN rm -f openpose_pretrained_models.zip && mkdir -p build
 
-WORKDIR /root/openpose/build
+WORKDIR /home/${user}/openpose/build
 
 # Build OpenPose
 RUN cmake .. -B . -DBUILD_PYTHON=ON -DBUILD_python=ON -DGPU_MODE=CUDA -DUSE_OPENCV=ON \
@@ -84,7 +86,7 @@ RUN cmake .. -B . -DBUILD_PYTHON=ON -DBUILD_python=ON -DGPU_MODE=CUDA -DUSE_OPEN
     # (https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/)
     -DCUDA_ARCH="Manual" -DCUDA_ARCH_BIN="60 61 70 75 80 86"
 
-WORKDIR /root/openpose
+WORKDIR /home/${user}/openpose
 
 RUN make -C "./build" -j`proc`
 

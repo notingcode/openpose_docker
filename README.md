@@ -8,7 +8,7 @@ If **Docker Desktop** is installed, make sure the image is built with `sudo` pri
 
 ```[bash]
 # Make sure you have 'nvidia-container-toolkit' installed on your host computer
-sudo docker build -t openpose:base .
+sudo docker build --build-arg user=${USER} -t openpose:base .
 ```
 
 [Install NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
@@ -24,5 +24,15 @@ curl -fsSL https://raw.githubusercontent.com/mviereck/x11docker/master/x11docker
 ## How to start container with built image
 
 ```[bash]
-sudo x11docker -i --user=RETAIN --gpu --runtime=nvidia --xwayland openpose:base
+sudo x11docker -i --sudouser --gpu --runtime=nvidia --xwayland openpose:base
+```
+
+### Sudo Privileges
+
+If access is denied to certain files or directories, get sudo privileges inside container.
+
+```[bash]
+# Password is always x11docker
+username@9ceb007da3a5:~$ su
+Password: x11docker
 ```
