@@ -11,17 +11,31 @@ If **Docker Desktop** is installed, make sure the image is built with `sudo` pri
 sudo docker build --build-arg user=${USER} -t openpose:base .
 ```
 
+- Check the Dockerfile for build details.
+
 [Install NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
 
-## X Server Forwarding Prerequisite
+## Docker run container with shell attached (Linux and WSL)
 
-### Install x11docker (Linux and Windows Subsystem for Linux)
+```[bash]
+sudo docker run -it --gpus all splat:base
+```
+
+- May need to look at OpenPose documentation to run instructions without GUI.
+
+## How to start GUI compatible container with built image on Linux
+
+The following instruction will allow execution of OpenPose commands with GUI.
+
+### X Server Forwarding Prerequisite
+
+Install [x11docker](https://github.com/mviereck/x11docker)
 
 ```[bash]
 curl -fsSL https://raw.githubusercontent.com/mviereck/x11docker/master/x11docker | sudo bash -s -- --update
 ```
 
-## How to start container with built image
+### Run the container
 
 ```[bash]
 sudo x11docker -i --sudouser --gpu --runtime=nvidia --xwayland openpose:base
