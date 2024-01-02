@@ -18,7 +18,7 @@ sudo docker build --build-arg user=${USER} -t openpose:base .
 ## Docker run container with shell attached (Linux and WSL)
 
 ```[bash]
-sudo docker run -it --gpus all splat:base
+sudo docker run -it --gpus all openpose:base
 ```
 
 - May need to look at OpenPose documentation to run instructions without GUI.
